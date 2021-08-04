@@ -16,6 +16,10 @@ module Representable
       def collection_representer_class
         Collection
       end
+
+      def format_engine
+        Representable::Object
+      end
     end
 
     def from_object(data, options={}, binding_builder=Binding)
