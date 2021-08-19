@@ -1,5 +1,6 @@
 require "test_helper"
 require "representable/object"
+require "representable/decorator"
 
 class ObjectTest < MiniTest::Spec
   Song  = Struct.new(:title, :album)
@@ -56,5 +57,20 @@ class ObjectTest < MiniTest::Spec
       _(source.album.name).must_equal "Live"
       _(source.album.songs[0].title).must_equal 1
     end
+  end
+
+  describe ".format_engine" do
+    let(:decorator) do
+      class DecoratedObject < Representable::Decorator
+        include Representable::Object
+
+        property :city, as: :city_name
+      end
+
+      DecoratedObject
+    end
+
+    it { decorator.must_equal(ObjectTest::DecoratedObject) }
+    it { decorator.format_engine.must_equal(Representable::Object) }
   end
 end
