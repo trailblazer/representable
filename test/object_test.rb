@@ -65,18 +65,22 @@ class ObjectTest < MiniTest::Spec
     end
 
     describe "when used as decorator" do
-      representer!(name: :decorator ,module: Representable::Object, decorator: true) do
-        property :name, getter: ->(represented:, **) {
-          represented.name = "#{represented.name} is the best team of America"
-        }
+      representer!(name: :decorator, module: Representable::Object, decorator: true) do
+        property :title
+
+        property :album, render_filter: lambda { |input, options|input.name = "Atletico Nacional";input } do
+          property :name
+
+          collection :songs, render_filter: lambda { |input, options|input[0].title = 1;input } do
+            property :title
+          end
+        end
       end
 
-      let(:target) { Album.new("Atletico Nacional") }
-
       it "transforms object" do
-        decorator.prepare(target).to_object
+        decorator.prepare(source).to_object
 
-        _(target.name).must_equal("Atletico Nacional is the best team of America")
+        _(source.album.name).must_equal("Atletico Nacional")
       end
     end
   end
