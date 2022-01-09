@@ -1,3 +1,6 @@
+# 3.2.0
+* Drop support for Virtus Coercion
+
 # 3.1.1
 
 * Upgrade `trailblazer-option` to `0.1.1` which supports passing an empty `keyword_arguments`.
