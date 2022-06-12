@@ -74,10 +74,10 @@ module Representable
       value.nil? and !(self[:render_nil])
     end
 
+    # DISCUSS: Do we use this anymore ?
     def default_for(value)
-      return self[:default] if skipable_empty_value?(value)
-
-      value
+      return value unless skipable_empty_value?(value)
+      return self[:default].(exec_context: self) if self[:default]
     end
 
     attr_accessor :cached_representer

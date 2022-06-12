@@ -14,7 +14,8 @@ module Representable
   RenderDefault = ->(input, options) do
     binding = options[:binding]
 
-    binding.skipable_empty_value?(input) ? binding[:default] : input
+    return input unless binding.skipable_empty_value?(input)
+    binding[:default].(exec_context: binding.send(:exec_context, options), keyword_arguments: options)
   end
 
   StopOnSkipable = ->(input, options) do

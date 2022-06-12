@@ -9,7 +9,8 @@ module Representable
   class Definition < ::Declarative::Definitions::Definition
 
     def initialize(sym, options={}, &block)
-      options[:extend] = options[:nested] if options[:nested]
+      options[:extend]  = options[:nested] if options[:nested]
+      options[:default] = Representable::Option(options[:default]) if options[:default]
 
       super
 
