@@ -1,5 +1,6 @@
 # 3.2.0
 * Drop support for Virtus Coercion
+* Fix deprecation warning with Nokogiri 1.13.0
 
 # 3.1.1
 

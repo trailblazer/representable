@@ -27,6 +27,10 @@ class HashBindingTest < MiniTest::Spec
       it "returns FRAGMENT_NOT_FOUND if not in document" do
         assert_equal Representable::Binding::FragmentNotFound, @property.read({}, "song")
       end
+
+      it "will not fail if given an empty hash value and will return FRAGMENT_NOT_FOUND" do
+        assert_equal Representable::Binding::FragmentNotFound, @property.read(nil, "song")
+      end
     end
   end
 

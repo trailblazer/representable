@@ -10,6 +10,7 @@ module Representable
       end
 
       def read(hash, as)
+        return FragmentNotFound unless hash
         hash.has_key?(as) ? hash[as] : FragmentNotFound
       end
 
