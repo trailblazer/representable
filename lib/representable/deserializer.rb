@@ -24,7 +24,10 @@ module Representable
   end
 
   Default = ->(input, options) do
-    Binding::FragmentNotFound == input ? options[:binding][:default] : input
+    binding = options[:binding]
+
+    return input if Binding::FragmentNotFound != input
+    binding[:default].call(exec_context: binding.send(:exec_context, options), keyword_arguments: options)
   end
 
   SkipParse = ->(input, options) do

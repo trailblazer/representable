@@ -218,7 +218,7 @@ class DefinitionTest < MiniTest::Spec
 
     it "accepts a default value" do
       @def = Representable::Definition.new(:song, :default => "Atheist Peace")
-      assert_equal "Atheist Peace", @def[:default]
+      assert_equal "Atheist Peace", @def[:default].(exec_context: Object)
     end
   end
 
