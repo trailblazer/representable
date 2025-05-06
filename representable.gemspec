@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "rake"
   spec.add_development_dependency "test_xml", ">= 0.1.6"
-  spec.add_development_dependency "minitest"
+  spec.add_development_dependency "minitest", "~> 5.9.0"
   spec.add_development_dependency "dry-types"
   spec.add_development_dependency "ruby-prof" if RUBY_ENGINE == "ruby" # mri
 end
