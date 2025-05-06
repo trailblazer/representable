@@ -90,8 +90,9 @@ class DefinitionTest < MiniTest::Spec
 
   # #inspect
   describe "#inspect" do
+    options = {name: "songs", parse_filter: [], render_filter: []}
     it {
-      _(Definition.new(:songs).inspect).must_equal "#<Representable::Definition ==>songs @options={:name=>\"songs\", :parse_filter=>[], :render_filter=>[]}>"
+      _(Definition.new(:songs).inspect).must_equal "#<Representable::Definition ==>songs @options=#{options}>"
     }
   end
 

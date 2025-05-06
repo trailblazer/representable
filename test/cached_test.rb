@@ -21,6 +21,8 @@ class Profiler
         printer.printProfile(print_stream)
         output_stream.toString
     end
+  rescue LoadError
+    false
   end
 end
 
@@ -51,6 +53,10 @@ class CachedTest < MiniTest::Spec
     collection :songs, decorator: SongRepresenter, class: Model::Song
   end
 
+  before do
+    @profiler_available = Profiler.profile {}
+  end
+
   describe "serialization" do
     let(:album_hash) do
       {
@@ -68,12 +74,13 @@ class CachedTest < MiniTest::Spec
       # album2 = Model::Album.new("Louder And Even More Dangerous", [song2, song])
 
       # makes sure options are passed correctly.
-      _(representer.to_hash(user_options: {volume: 9})).must_equal(
+      options = {volume: 9}
+      _(representer.to_hash(user_options: options)).must_equal(
         {
           "name"  => "Live And Dangerous",
           "songs" => [
-            {"title"=>"Jailbreak:{:volume=>9}"}, {"title"=>"Southbound:{:volume=>9}"},
-            {"title"=>"Emerald:{:volume=>9}"}
+            {"title"=>"Jailbreak:#{options}"}, {"title"=>"Southbound:#{options}"},
+            {"title"=>"Emerald:#{options}"}
           ]
         }
       ) # called in Deserializer/Serializer
@@ -87,6 +94,8 @@ class CachedTest < MiniTest::Spec
 
     # profiling
     it do
+      skip "ruby_prof not available" unless @profiler_available
+
       representer.to_hash
 
       data = Profiler.profile { representer.to_hash }
@@ -141,6 +150,8 @@ class CachedTest < MiniTest::Spec
     end
 
     it "xxx" do
+      skip "ruby_prof not available" unless @profiler_available
+
       representer = AlbumRepresenter.new(Model::Album.new)
       representer.from_hash(album_hash)
 

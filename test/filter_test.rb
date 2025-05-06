@@ -20,12 +20,14 @@ class FilterTest < MiniTest::Spec
 
   # gets doc and options.
   it {
-    song = OpenStruct.new.extend(representer).from_hash("title" => "VULCAN EARS", "track" => "Nine")
+    input = {"title" => "VULCAN EARS", "track" => "Nine"}
+    song = OpenStruct.new.extend(representer).from_hash(input)
     _(song.title).must_equal "VULCAN EARS"
-    _(song.track).must_equal "nine,{\"title\"=>\"VULCAN EARS\", \"track\"=>\"Nine\"}"
+    _(song.track).must_equal "nine,#{input}"
   }
 
   it {
+    val = {"title" => "vulcan ears"}
     _(
       OpenStruct.new(
         "title" => "vulcan ears",
@@ -33,7 +35,7 @@ class FilterTest < MiniTest::Spec
       ).extend(representer).to_hash
     ).must_equal({
                    "title" => "vulcan ears",
-                   "track" => "NINE,{\"title\"=>\"vulcan ears\"},{}"
+                   "track" => "NINE,#{val},{}"
                  })
   }
 

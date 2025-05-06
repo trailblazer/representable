@@ -13,7 +13,7 @@ class SerializeDeserializeTest < BaseTest
                }
     end
 
-    it { _(subject.from_hash({"song" => Object}, user_options: {volume: 9}).song).must_equal "OBJECT Object {:volume=>9}" }
+    it { _(subject.from_hash({"song" => Object}, user_options: {volume: 9}).song).must_equal "OBJECT Object #{{volume: 9}}" }
   end
 
   describe "serialize" do
@@ -28,6 +28,6 @@ class SerializeDeserializeTest < BaseTest
 
     before { subject.song = "Arrested In Shanghai" }
 
-    it { _(subject.to_hash(user_options: {volume: 9})).must_equal({"song"=>"Arrested In Shanghai {:volume=>9}"}) }
+    it { _(subject.to_hash(user_options: {volume: 9})).must_equal({"song"=>"Arrested In Shanghai #{{volume: 9}}"}) }
   end
 end

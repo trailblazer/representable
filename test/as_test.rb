@@ -32,8 +32,8 @@ class AsTest < MiniTest::Spec
         property :name, :as => ->(options) { options[:user_options].inspect }
       end
 
-      it { render(song, user_options: {volume: 1}).must_equal_document({"{:volume=>1}" => "Revolution"}) }
-      it { _(parse(song, {"{:volume=>1}" => "Wie Es Geht"}, user_options: {volume: 1}).name).must_equal "Wie Es Geht" }
+      it { render(song, user_options: {volume: 1}).must_equal_document({{volume: 1}.inspect => "Revolution"}) }
+      it { _(parse(song, {{volume: 1}.inspect => "Wie Es Geht"}, user_options: {volume: 1}).name).must_equal "Wie Es Geht" }
     end
   end
 end
