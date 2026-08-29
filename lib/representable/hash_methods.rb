@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Representable
   module HashMethods
     def create_representation_with(doc, options, format)

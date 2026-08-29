@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'representable/hash'
 
 module Representable::Hash

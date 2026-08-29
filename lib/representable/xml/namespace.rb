@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Representable::XML
   # Experimental!
   # Best explanation so far: http://books.xmlschemata.org/relaxng/relax-CHP-11-SECT-1.html

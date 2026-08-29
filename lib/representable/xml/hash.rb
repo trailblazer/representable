@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'representable/xml'
 require 'representable/hash_methods'
 

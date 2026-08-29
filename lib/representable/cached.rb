@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Representable
   # Using this module only makes sense with Decorator representers.
   module Cached

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Representable
   Getter = ->(input, options) do
     options[:binding].evaluate_option(:getter, input, options)

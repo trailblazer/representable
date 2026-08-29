@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Representable
   # Allows to implement a pipeline of filters where a value gets passed in and the result gets
   # passed to the next callable object.

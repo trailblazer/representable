@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # NOTE: this might become a separate class, that's why it's in a separate file.
 module Representable
   module Binding::Factories

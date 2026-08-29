@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 gem 'dry-types', '>= 1.0.0'
 require "dry-types"
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Representable
   # we don't use keyword args, because i didn't want to discriminate 1.9 users, yet.
   # this will soon get introduces and remove constructs like options[:binding][:default].

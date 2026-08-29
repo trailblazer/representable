@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "uber/delegates"
 require "uber/callable"
 require "declarative/schema"

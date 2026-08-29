@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 gem 'nokogiri', '> 1.10.8'
 require 'nokogiri'
 

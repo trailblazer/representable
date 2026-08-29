@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Representable
   class Pipeline < Array # i hate that.
     module Function

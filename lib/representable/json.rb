@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 gem "multi_json", '>= 1.14.1'
 require "multi_json"
 

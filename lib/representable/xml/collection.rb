@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Representable::XML
   module Collection
     def self.included(base)
