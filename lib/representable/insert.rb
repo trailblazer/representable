@@ -12,8 +12,8 @@ module Representable
       private
         def replace!(arr, old_func, new_func)
           arr.each_with_index { |func, index|
-            if func.is_a?(Collect)
-              arr[index] = Collect[*Pipeline::Insert.(func, new_func, replace: old_func)]
+            if func.is_a?(Collect) || func.is_a?(Collect::Hash)
+              arr[index] = func.class[*Pipeline::Insert.(func, new_func, replace: old_func)]
             end
 
             arr[index] = new_func if func==old_func
@@ -25,8 +25,8 @@ module Representable
 
           # TODO: make nice.
           arr.each_with_index { |func, index|
-            if func.is_a?(Collect)
-              arr[index] = Collect[*Pipeline::Insert.(func, removed_func, delete: true)]
+            if func.is_a?(Collect) || func.is_a?(Collect::Hash)
+              arr[index] = func.class[*Pipeline::Insert.(func, removed_func, delete: true)]
             end
           }
         end
