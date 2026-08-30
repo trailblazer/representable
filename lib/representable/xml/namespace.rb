@@ -28,7 +28,7 @@ module Representable::XML
 
       def property(name, options={})
         uri = representable_attrs.options[:local_namespace] # per default, a property belongs to the local namespace.
-        options[:namespace] ||= uri # don't override if already set.
+        options = options.merge(namespace: options[:namespace] || uri) # don't override if already set.
 
         # a nested representer is automatically assigned "its" local namespace. It's like saying
         #   property :author, namespace: "http://ns/author" do ... end
