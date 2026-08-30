@@ -24,17 +24,17 @@ class ObjectTest < Minitest::Spec
   it do
     representer.prepare(target).from_object(source)
 
-    _(target.title).must_equal "The King Is Dead"
-    _(target.album.name).must_equal "RUINER"
-    _(target.album.songs[0].title).must_equal "IN VINO VERITAS II"
+    assert_equal "The King Is Dead", target.title
+    assert_equal "RUINER", target.album.name
+    assert_equal "IN VINO VERITAS II", target.album.songs[0].title
   end
 
   # ignore nested object when nil
   it do
     representer.prepare(Song.new("The King Is Dead")).from_object(Song.new)
 
-    _(target.title).must_be_nil # scalar property gets overridden when nil.
-    _(target.album).must_be_nil # nested property stays nil.
+    assert_nil target.title # scalar property gets overridden when nil.
+    assert_nil target.album # nested property stays nil.
   end
 
   # to_object
