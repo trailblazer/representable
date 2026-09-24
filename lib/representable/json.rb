@@ -6,6 +6,18 @@ require "representable"
 module Representable
   # Brings #to_json and #from_json to your object.
   module JSON
+    if Kernel.const_defined?(:MultiJson) # Ruby 3.0
+      module MultiJSON
+        def self.generate(*args)
+          MultiJson.dump(*args)
+        end
+
+        def self.parse(*args)
+          MultiJson.load(*args)
+        end
+      end
+    end
+
     autoload :Collection, "representable/json/collection"
 
     extend Hash::ClassMethods

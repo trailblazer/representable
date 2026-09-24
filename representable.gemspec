@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.license       = "MIT"
 
-  spec.required_ruby_version = '>= 3.3.0'
+  spec.required_ruby_version = '>= 3.0.0'
 
   spec.add_dependency "uber",               "< 0.2.0"
   spec.add_dependency "declarative",        "< 0.1.0"
