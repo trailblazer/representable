@@ -1,3 +1,8 @@
+# 3.3.0
+
+* Drop support for Ruby < 3.0.0.
+* Fix deprecations with `MultiJson`.
+
 # 3.2.0
 * Drop support for Virtus Coercion
 * Fix deprecation warning with Nokogiri 1.13.0
