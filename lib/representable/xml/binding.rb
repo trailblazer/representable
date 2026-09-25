@@ -133,7 +133,7 @@ module Representable
       # Represents a tag attribute. Currently this only works on the top-level tag.
       class Attribute < self
         def read(node, as)
-          node[as]
+          node.key?(as) ? node[as] : FragmentNotFound
         end
 
         def serialize_for(value, parent, as)
