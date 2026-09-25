@@ -46,8 +46,10 @@ module Representable
     class Hash < Pipeline
       def call(input, options)
         {}.tap do |hsh|
-          input.each { |key, item_fragment|
-            hsh[key] = super(item_fragment, options) }# DISCUSS: NO :fragment set.
+          input.each do |key, item_fragment|
+            result = super(item_fragment, options)
+            hsh[key] = result unless Pipeline::Stop == result
+          end
         end
       end
     end
