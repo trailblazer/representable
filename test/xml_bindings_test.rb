@@ -52,4 +52,17 @@ class XMLBindingTest < Minitest::Spec
       assert_xml_equal(parent.to_s, "<song>The Gargoyle</song>")
     end
   end
+
+  describe "AttributeHashBinding" do
+    before do
+      definition = Representable::Definition.new(:songs, :hash => true, :use_attributes => true)
+      @property = Representable::XML::Binding::AttributeHash.new(definition)
+    end
+
+    it "extracts attributes with #read" do
+      node = Nokogiri::XML("<songs one=\"Graveyards\" two=\"Bronx\" />").root
+
+      assert_equal({"one" => "Graveyards", "two" => "Bronx"}, @property.read(node, "songs"))
+    end
+  end
 end
