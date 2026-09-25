@@ -63,6 +63,8 @@ module Representable
       functions << (self[:reader] ? Reader : ReadFragment)
       functions << (has_default? ? Default : StopOnNotFound)
       functions << OverwriteOnNil # include StopOnNil if you don't want to erase things.
+      functions << AssignFragment if array? || self[:hash]
+      functions
     end
 
     def default_parse_fragment_functions
