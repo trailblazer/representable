@@ -6,7 +6,7 @@ require "representable"
 module Representable
   # Brings #to_json and #from_json to your object.
   module JSON
-    if Kernel.const_defined?(:MultiJson) # Ruby 3.0
+    if Gem.loaded_specs["multi_json"].version < Gem::Version.new("1.21.0")
       module MultiJSON
         def self.generate(*args)
           MultiJson.dump(*args)
