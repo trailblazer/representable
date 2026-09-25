@@ -97,6 +97,13 @@ module Representable
 
 
       class Hash < Collection
+        def read(node, _as)
+          nodes = self[:wrap] ? node.xpath(self[:wrap]) : Nokogiri::XML::NodeSet.new(node.document, [node])
+          return FragmentNotFound if nodes.empty?
+
+          deserialize_from(nodes)
+        end
+
         def serialize_for(value, parent, as)
           set_for(parent, value.collect do |k, v|
             node = XML::Node(parent.document, k)
@@ -107,6 +114,7 @@ module Representable
         def deserialize_from(nodes)
           hash = {}
           nodes.children.each do |node|
+            next unless node.element?
             hash[node.name] = content_for node
           end
 
