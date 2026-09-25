@@ -37,6 +37,8 @@ module Representable
       end
 
       def serialize_node(node, value, as)
+        return node if value.nil?
+
         if typed?
           value.name = as if as != self[:name]
           return value
