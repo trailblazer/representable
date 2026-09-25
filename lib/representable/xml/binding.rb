@@ -63,7 +63,13 @@ module Representable
       def find_nodes(doc, as)
         selector  = as
         selector  = "#{self[:wrap]}/#{as}" if self[:wrap]
-        doc.xpath(selector) # nodes
+        doc.xpath(selector, xpath_namespaces) # nodes
+      end
+
+      def xpath_namespaces
+        (self[:namespace_defs] || {}).each_with_object({}) do |(uri, prefix), namespaces|
+          namespaces[(prefix || Namespace::XPATH_DEFAULT_PREFIX).to_s] = uri
+        end
       end
 
       def content_for(node) # TODO: move this into a ScalarDecorator.
