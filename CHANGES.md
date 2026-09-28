@@ -1,3 +1,7 @@
+# 3.3.1
+
+* Remove MultiJson deprecation.
+
 # 3.3.0
 
 * Drop support for Ruby < 3.0.0.
