@@ -123,9 +123,12 @@ module Representable
           parent
         end
 
-        # FIXME: this is not tested!
+        def read(node, _as)
+          deserialize_from(node)
+        end
+
         def deserialize_from(node)
-          HashDeserializer.new(self).deserialize(node)
+          node.attribute_nodes.each_with_object({}) { |attribute, hash| hash[attribute.name] = attribute.value }
         end
       end
 
