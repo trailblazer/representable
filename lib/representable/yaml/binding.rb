@@ -38,6 +38,8 @@ module Representable
         include Representable::Binding::Collection
 
         def node_for(fragments)
+          return super if fragments.nil?
+
           Psych::Nodes::Sequence.new.tap do |seq|
             seq.style = Psych::Nodes::Sequence::FLOW if self[:style] == :flow
             fragments.each { |frag| seq.children << write_scalar(frag) }

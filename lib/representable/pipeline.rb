@@ -35,6 +35,8 @@ module Representable
   class Collect < Pipeline
     # when stop, the element is skipped. (should that be Skip then?)
     def call(input, options)
+      return input if input.nil?
+
       arr = []
       input.each_with_index do |item_fragment, i|
         result = super(item_fragment, options.merge(index: i)) # DISCUSS: NO :fragment set.
