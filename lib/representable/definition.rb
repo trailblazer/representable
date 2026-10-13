@@ -9,6 +9,7 @@ module Representable
   class Definition < ::Declarative::Definitions::Definition
 
     def initialize(sym, options={}, &block)
+      options = options.dup
       options[:extend] = options[:nested] if options[:nested]
 
       super
@@ -26,7 +27,7 @@ module Representable
     alias_method :getter, :name
 
     def merge!(options, &block)
-      options = options.clone
+      options = options.dup
 
       options[:parse_filter]  = @options[:parse_filter].push(*options[:parse_filter])
       options[:render_filter] = @options[:render_filter].push(*options[:render_filter])
