@@ -79,7 +79,17 @@ module Representable
       return func.extend(Pipeline::Debug).inspect if func.is_a?(Collect)
       return func unless func.is_a?(Proc)
 
-      File.readlines(func.source_location[0])[func.source_location[1]-1].match(/^\s+(\w+)/)[1]
+      location = func.source_location
+      return func.inspect unless location && location[1] > 0
+
+      line = nil
+      File.open(location[0], "rb") do |file|
+        location[1].times { break unless (line = file.gets) }
+      end
+      name = line && line.match(/^\s*(\w+)/)
+      name ? name[1] : func.inspect
+    rescue SystemCallError, IOError
+      func.inspect
     end
   end
 end
