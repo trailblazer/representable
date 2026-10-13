@@ -92,7 +92,8 @@ module Representable::XML
 
       # TODO: there should be an easier way to pass a set of options to all nested #to_node decorators.
       representable_attrs.keys.each do |property|
-        options[property.to_sym] = { show_definition: false, namespaces: options[:namespaces] }
+        nested_options = options[property.to_sym] || {}
+        options[property.to_sym] = nested_options.merge(show_definition: false, namespaces: options[:namespaces])
       end
 
       super(options).tap do |node|
