@@ -12,12 +12,14 @@ module Representable::XML
 
     module DSL
       def namespace(namespace)
+        heritage.record(:namespace, namespace)
         representable_attrs.options[:local_namespace] = namespace
         representable_attrs.options[:namespace_mappings] ||= {}
         representable_attrs.options[:namespace_mappings][namespace] = nil # this might get overwritten via #namespace_def later.
       end
 
       def namespace_def(mapping)
+        heritage.record(:namespace_def, mapping)
         namespace_defs.merge!(mapping.invert)
       end
 
