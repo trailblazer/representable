@@ -52,7 +52,7 @@ module Representable
 
     # Returns a Nokogiri::XML object representing this object.
     def to_node(options={})
-      options[:doc] = Nokogiri::XML::Document.new # DISCUSS: why do we need a fresh Document here?
+      options = options.merge(doc: Nokogiri::XML::Document.new)
       root_tag = options[:wrap] || representation_wrap(options)
 
       create_representation_with(Node(options[:doc], root_tag.to_s), options, Binding)
