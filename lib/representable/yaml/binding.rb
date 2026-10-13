@@ -22,7 +22,14 @@ module Representable
       def write_scalar(value)
         return value if typed?
 
-        Psych::Nodes::Scalar.new(value.to_s)
+        value = value.to_s
+        if value.encoding == Encoding::BINARY && !value.ascii_only?
+          return Psych::Nodes::Scalar.new(
+            [value].pack('m0'), nil, 'tag:yaml.org,2002:binary', false, false, Psych::Nodes::Scalar::LITERAL
+          )
+        end
+
+        Psych::Nodes::Scalar.new(value.encode(Encoding::UTF_8))
       end
 
       def serialize_method
