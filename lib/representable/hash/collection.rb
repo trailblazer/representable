@@ -28,7 +28,7 @@ module Representable::Hash
       bin   = representable_bindings_for(format, options).first
 
       Collect[*bin.default_render_fragment_functions].
-        (represented, {doc: doc, fragment: represented, options: options, binding: bin, represented: represented})
+        (represented, {doc: doc, fragment: represented, options: options, binding: bin, represented: represented, decorator: self})
     end
 
     def update_properties_from(doc, options, format)
@@ -38,7 +38,7 @@ module Representable::Hash
       bin   = representable_bindings_for(format, options).first
 
       value = Collect[*bin.default_parse_fragment_functions].
-        (doc, fragment: doc, document: doc, options: options, binding: bin, represented: represented)
+        (doc, fragment: doc, document: doc, options: options, binding: bin, represented: represented, decorator: self)
 
       represented.replace(value)
     end
