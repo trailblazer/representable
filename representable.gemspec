@@ -13,8 +13,7 @@ Gem::Specification.new do |spec|
   spec.summary     = %q{Renders and parses JSON/XML/YAML documents from and to Ruby objects. Includes plain properties, collections, nesting, coercion and more.}
   spec.description = spec.summary
 
-  spec.files         = `git ls-files`.split("\n")
-  spec.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  spec.files         = `git ls-files`.split("\n").reject { |f| f.start_with?("test/", "spec/", "features/") }
   spec.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   spec.require_paths = ["lib"]
   spec.license       = "MIT"
