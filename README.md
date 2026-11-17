@@ -131,6 +131,18 @@ class AlbumRepresenter < Representable::Decorator
 end
 ```
 
+## Formats
+
+The gem supports JSON, XML, YAML, hashes and Struct-based objects for the representing output. 
+To use a specific format, include the corresponding module in your representer and use `to_<format>` method on a represented object:
+
+- `Representable::JSON#to_json`
+- `Representable::JSON#to_hash` (provides a hash instead of string)
+- `Representable::Hash#to_hash`
+- `Representable::Struct#to_struct` (provides a Struct-based object)
+- `Representable::XML#to_xml`
+- `Representable::YAML#to_yaml`
+
 ## More
 
 Representable has many more features and can literally parse and render any kind of document to an arbitrary Ruby object graph.
