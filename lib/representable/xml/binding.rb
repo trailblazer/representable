@@ -77,6 +77,8 @@ module Representable
         include Representable::Binding::Collection
 
         def serialize_for(value, parent, as)
+          return super if value.nil?
+
           # return NodeSet so << works.
           set_for(parent, value.collect { |item| super(item, parent, as) })
         end
