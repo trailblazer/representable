@@ -1,6 +1,7 @@
 module Representable
   module HashMethods
     def create_representation_with(doc, options, format)
+      options = options.dup
       hash  = filter_keys_for!(represented, options) # FIXME: this modifies options and replicates logic from Representable.
       bin   = representable_map(options, format).first
 
@@ -8,6 +9,7 @@ module Representable
     end
 
     def update_properties_from(doc, options, format)
+      options = options.dup
       hash  = filter_keys_for!(doc, options)
       bin   = representable_map(options, format).first
 
