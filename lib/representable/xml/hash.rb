@@ -17,7 +17,7 @@ module Representable::XML
 
     module ClassMethods
       def values(options)
-        hash :_self, options.merge!(:use_attributes => true)
+        hash :_self, options.merge(:use_attributes => true)
       end
     end
 

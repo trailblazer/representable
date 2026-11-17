@@ -18,8 +18,7 @@ module Representable
     def hash(name=nil, options={}, &block)
       return super() unless name  # allow Object.hash.
 
-      options[:hash] = true
-      property(name, options, &block)
+      property(name, options.merge(hash: true), &block)
     end
 
     # Allows you to nest a block of properties in a separate section while still mapping
