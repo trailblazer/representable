@@ -4,7 +4,7 @@ module Representable
   # Extend `Trailblazer::Option` to support static values as callables too.
   class Option < ::Trailblazer::Option
     def self.callable?(value)
-      [Proc, Symbol, Uber::Callable].any?{ |kind| value.is_a?(kind) }
+      value.is_a?(Proc) || value.is_a?(Symbol) || value.is_a?(Uber::Callable)
     end
 
     def self.build(value)

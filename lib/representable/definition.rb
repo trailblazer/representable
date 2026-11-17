@@ -104,9 +104,10 @@ module Representable
     # at runtime, its value never changes).
     def runtime_options!(options)
       @runtime_options = {}
+      dynamic_option_names = dynamic_options
 
       for name, value in options
-        value = ::Representable::Option(value) if dynamic_options.include?(name)
+        value = ::Representable::Option(value) if dynamic_option_names.include?(name)
         @runtime_options[name] = value
       end
     end
