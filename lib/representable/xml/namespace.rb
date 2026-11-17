@@ -6,6 +6,8 @@ module Representable::XML
   # different implementation in Java which has other requirements that we couldn't fulfil.
   # Please wait for Representable 4 where we replace Nokogiri with Oga.
   module Namespace
+    XPATH_DEFAULT_PREFIX = '__representable'.freeze
+
     def self.included(includer)
       includer.extend(DSL)
     end
@@ -34,6 +36,8 @@ module Representable::XML
         #   property :author, namespace: "http://ns/author" do ... end
 
         super.tap do |dfn|
+          dfn.merge!(namespace_defs: namespace_defs)
+
           if dfn.typed? # FIXME: ouch, this should be doable with property's API to hook into the creation process.
             dfn.merge!( namespace: dfn.representer_module.representable_attrs.options[:local_namespace] )
 
@@ -65,13 +69,13 @@ module Representable::XML
 
       # FIXME: this is shit, the NestedOptions is executed too late here!
       def read(node, as)
-        super(node, prefixed(self, as))
+        super(node, prefixed(self, as, XPATH_DEFAULT_PREFIX))
       end
 
       private
-      def prefixed(dfn, as)
+      def prefixed(dfn, as, default_prefix = nil)
         uri    = dfn[:namespace] # this is generic behavior and per property
-        prefix = dfn[:namespace_defs][uri]
+        prefix = dfn[:namespace_defs][uri] || (default_prefix if uri)
         as     = Namespace::Namespaced(prefix, as)
       end
     end
