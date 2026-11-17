@@ -45,9 +45,18 @@ module Representable
 
     class Hash < Pipeline
       def call(input, options)
+        had_fragment = options.key?(:fragment)
+        fragment = options[:fragment] if had_fragment
+
         {}.tap do |hsh|
           input.each { |key, item_fragment|
             hsh[key] = super(item_fragment, options) }# DISCUSS: NO :fragment set.
+        end
+      ensure
+        if had_fragment
+          options[:fragment] = fragment unless options[:fragment].equal?(fragment)
+        else
+          options.delete(:fragment) if options.key?(:fragment)
         end
       end
     end
