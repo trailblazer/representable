@@ -17,7 +17,7 @@ module Representable
 
       # TODO: Merge with Definitions.
       def <<(binding) # can be slow. this is compile time code.
-        (existing = find { |bin| bin.name == binding.name }) ? self[index(existing)] = binding : super(binding)
+        (existing = index { |bin| bin.name == binding.name }) ? self[existing] = binding : super(binding)
       end
     end
 
