@@ -38,11 +38,9 @@ module Representable
   Serialize = ->(input, options) do
     return if input.nil? # DISCUSS: how can we prevent that?
 
-    binding, options = options[:binding], options[:options] # FIXME: rename to :local_options.
+    binding = options[:binding]
 
-    options_for_nested = OptionsForNested.(options, binding)
-
-    input.send(binding.serialize_method, options_for_nested)
+    input.send(binding.serialize_method, binding.serialize_options(options))
   end
 
   WriteFragment = ->(input, options) { options[:binding].write(options[:doc], input, options[:as]) }

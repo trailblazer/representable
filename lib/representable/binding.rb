@@ -80,12 +80,22 @@ module Representable
       value
     end
 
+    # Options for the nested representer that renders this property's value.
+    def serialize_options(options)
+      local_options = options[:options] # FIXME: rename to :local_options.
+
+      OptionsForNested.(local_options, self).merge!(format_serialize_options(options))
+    end
+
     attr_accessor :cached_representer
 
     require 'representable/pipeline_factories'
     include Factories
 
     private
+
+    # Hook: options a format adds for the nested representer.
+    def format_serialize_options(_options) = {}
 
     def setup_exec_context!
       @exec_context = ->(options) { options[:represented] } unless self[:exec_context]
