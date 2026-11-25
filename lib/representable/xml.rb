@@ -51,11 +51,15 @@ module Representable
     end
 
     # Returns a Nokogiri::XML object representing this object.
+    #
+    # A nested representer gets its parent's document as `:_document` (#302).
+    # The underscore keeps the key apart from nested options, which are keyed
+    # by property name.
     def to_node(options={})
-      options[:doc] = Nokogiri::XML::Document.new # DISCUSS: why do we need a fresh Document here?
+      document = options[:_document] || Nokogiri::XML::Document.new
       root_tag = options[:wrap] || representation_wrap(options)
 
-      create_representation_with(Node(options[:doc], root_tag.to_s), options, Binding)
+      create_representation_with(Node(document, root_tag.to_s), options, Binding)
     end
 
     def to_xml(*args)

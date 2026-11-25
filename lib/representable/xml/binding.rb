@@ -60,6 +60,12 @@ module Representable
       end
 
     private
+      # Nested nodes are built in the parent's document, so appending them
+      # doesn't copy them out of a throwaway document (#302).
+      def format_serialize_options(options)
+        { _document: options[:doc].document }
+      end
+
       def find_nodes(doc, as)
         selector  = as
         selector  = "#{self[:wrap]}/#{as}" if self[:wrap]
